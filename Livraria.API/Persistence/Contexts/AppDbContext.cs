@@ -19,6 +19,9 @@ namespace Livraria.API.Persistence.Contexts
             builder.Entity<Autor>().HasKey(a => a.Id);
             builder.Entity<Autor>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Autor>().Property(a => a.Nome).IsRequired().HasMaxLength(30);
+            builder.Entity<Autor>().HasIndex(a => a.Nome).IsUnique();
+
+
             //builder.Entity<Autor>().HasMany
             //(p => p.Livros).WithOne(p => p.Autor).HasForeignKey(p => p.AutorId);
 
@@ -34,7 +37,7 @@ namespace Livraria.API.Persistence.Contexts
                     Id = Guid.Parse("01299e9f-286a-4f53-a590-5cd8467a0c42"),
                     Nome = "Paulo Coelho"
                 }
-                                        );
+            );
 
             builder.Entity<Livro>().ToTable("Livros");
             builder.Entity<Livro>().HasKey(l => l.Id);
@@ -45,6 +48,10 @@ namespace Livraria.API.Persistence.Contexts
                 .HasOne<Autor>()
                 .WithMany()
                 .HasForeignKey(a => a.AutorId);
+            builder.Entity<Livro>()
+                .HasIndex(l => l.Titulo)
+                .IsUnique();
+
             //builder.Entity<Livro>().Property(p => p.AutorId);
 
 
