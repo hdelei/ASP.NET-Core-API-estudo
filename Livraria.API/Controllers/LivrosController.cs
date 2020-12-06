@@ -50,6 +50,17 @@ namespace Livraria.API.Controllers
                     );
                 }
 
+
+                if (result.Titulo == string.Empty)
+                {
+                    return BadRequest(
+                        new
+                        {
+                            Error = new { Description = "O Título não pode ser vazio" }
+                        }
+                    );
+                }
+
                 if (result.AutorId == Guid.Empty)
                 {
                     return BadRequest(

@@ -56,14 +56,23 @@ namespace Livraria.API.Persistence.Repositories
                     AutorId = livro.AutorId
                 };
 
+                if (_context.Livros.Any(l => l.Titulo == livro.Titulo))
+                {
+                    //TODO: implement duplicate title
+                }
+
                 var autor = _context.Autores.
                     Where(a => a.Id == livroNovo.AutorId)
                     .FirstOrDefault();
 
                 if (autor != null) //check if author already exists in database
                 {
-                    _context.Livros.Add(livroNovo);
-                    await _context.SaveChangesAsync();
+                    if (livroNovo.Titulo != string.Empty)
+                    {
+                        _context.Livros.Add(livroNovo);
+                        await _context.SaveChangesAsync();
+                    }
+
                 }
                 else
                 {

@@ -26,7 +26,7 @@ namespace Livraria.API.Persistence.Contexts
             //(p => p.Livros).WithOne(p => p.Autor).HasForeignKey(p => p.AutorId);
 
             builder.Entity<Autor>().HasData(
-                //Id definido manualmente pois vamos usar o  provedor in-memory
+                //Id definido manualmente. Usando provedor in-memory
                 new Autor
                 {
                     Id = Guid.Parse("74c5be24-88b8-479b-ae68-f0140177d5eb"),
