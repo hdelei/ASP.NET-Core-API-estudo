@@ -28,7 +28,7 @@ namespace Livraria.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Livro> GetLivro(int id)
+        public async Task<Livro> GetLivro(Guid id)
         {
             var livro = await _livroService.FindByIdAsync(id);
             return livro.Count() > 0 ? livro.First() : new Livro();
@@ -50,7 +50,7 @@ namespace Livraria.API.Controllers
                     );
                 }
 
-                if (result.AutorId == -1)
+                if (result.AutorId == Guid.Empty)
                 {
                     return BadRequest(
                         new
@@ -69,7 +69,7 @@ namespace Livraria.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
 
             if (!ModelState.IsValid)

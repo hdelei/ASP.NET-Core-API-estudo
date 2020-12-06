@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,12 +16,12 @@ namespace Livraria.API.Services
             _livroRepository = livroRepository;
         }
 
-        public async Task<bool> DeleteLivro(int id)
+        public async Task<bool> DeleteLivro(Guid id)
         {
             return await _livroRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<Livro>> FindByIdAsync(int id)
+        public async Task<IEnumerable<Livro>> FindByIdAsync(Guid id)
         {
             var livros = await _livroRepository.ListAsync();
             return livros.Where(l => l.Id.Equals(id));

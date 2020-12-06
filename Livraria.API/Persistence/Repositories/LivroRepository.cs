@@ -12,7 +12,7 @@ namespace Livraria.API.Persistence.Repositories
     public class LivroRepository : BaseRepository, ILivroRepository
     {
 
-        private const int AUTOR_DOES_NOT_EXIST = -1;
+        //private const int AUTOR_DOES_NOT_EXIST = -1;
         public LivroRepository(AppDbContext context) : base(context)
         {
             _dataset = _context.Set<Livro>();
@@ -44,9 +44,10 @@ namespace Livraria.API.Persistence.Repositories
         {
             try
             {
-                var lastLivro = _context.Livros.OrderByDescending(l => livro.Id).Last();
+                //var lastLivro = _context.Livros.OrderByDescending(l => livro.Id).Last();
 
-                livro.Id = lastLivro.Id + 1; //generate ID for the new book
+                //livro.Id = lastLivro.Id + 1; //generate ID for the new book
+                livro.Id = Guid.NewGuid(); //generate ID for the new book
 
                 var livroNovo = new Livro
                 {
@@ -66,7 +67,7 @@ namespace Livraria.API.Persistence.Repositories
                 }
                 else
                 {
-                    livro.AutorId = AUTOR_DOES_NOT_EXIST;
+                    livro.AutorId = Guid.Empty;
                 }
             }
             catch (System.Exception ex)
@@ -77,7 +78,7 @@ namespace Livraria.API.Persistence.Repositories
             return livro;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             try
             {

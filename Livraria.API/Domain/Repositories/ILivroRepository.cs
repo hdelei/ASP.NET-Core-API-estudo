@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Livraria.API.Domain.Models;
 
@@ -13,6 +14,6 @@ namespace Livraria.API.Domain.Repositories
 
         void Update(Livro livro);
         //void Remove(Livro livro);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

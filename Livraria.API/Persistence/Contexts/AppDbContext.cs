@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Livraria.API.Domain.Models;
+using System;
 
 namespace Livraria.API.Persistence.Contexts
 {
@@ -23,9 +24,17 @@ namespace Livraria.API.Persistence.Contexts
 
             builder.Entity<Autor>().HasData(
                 //Id definido manualmente pois vamos usar o  provedor in-memory
-                new Autor { Id = 100, Nome = "Drauzio Varella" },
-                new Autor { Id = 101, Nome = "Paulo Coelho" }
-            );
+                new Autor
+                {
+                    Id = Guid.Parse("74c5be24-88b8-479b-ae68-f0140177d5eb"),
+                    Nome = "Drauzio Varella"
+                },
+                new Autor
+                {
+                    Id = Guid.Parse("01299e9f-286a-4f53-a590-5cd8467a0c42"),
+                    Nome = "Paulo Coelho"
+                }
+                                        );
 
             builder.Entity<Livro>().ToTable("Livros");
             builder.Entity<Livro>().HasKey(l => l.Id);
@@ -40,9 +49,19 @@ namespace Livraria.API.Persistence.Contexts
 
 
             builder.Entity<Livro>().HasData(
-                //Id definido manualmente pois vamos usar o  provedor in-memory
-                new Livro { Id = 100, Titulo = "Carandiru", AutorId = 100 },
-                new Livro { Id = 101, Titulo = "Brida", AutorId = 101 }
+                //Id definido manualmente. Usando provedor in-memory
+                new Livro
+                {
+                    Id = Guid.NewGuid(),
+                    Titulo = "Carandiru",
+                    AutorId = Guid.Parse("74c5be24-88b8-479b-ae68-f0140177d5eb")
+                },
+                new Livro
+                {
+                    Id = Guid.NewGuid(),
+                    Titulo = "Brida",
+                    AutorId = Guid.Parse("01299e9f-286a-4f53-a590-5cd8467a0c42")
+                }
             );
 
         }
