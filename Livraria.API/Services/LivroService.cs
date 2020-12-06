@@ -15,6 +15,11 @@ namespace Livraria.API.Services
             _livroRepository = livroRepository;
         }
 
+        public async Task<bool> DeleteLivro(int id)
+        {
+            return await _livroRepository.DeleteAsync(id);
+        }
+
         public async Task<IEnumerable<Livro>> FindByIdAsync(int id)
         {
             var livros = await _livroRepository.ListAsync();
@@ -28,7 +33,6 @@ namespace Livraria.API.Services
 
         public async Task<Livro> PostLivro(Livro livro)
         {
-
             return await _livroRepository.AddAsync(livro);
         }
 

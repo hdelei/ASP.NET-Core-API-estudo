@@ -11,5 +11,8 @@ namespace Livraria.API.Domain.Services
         Task<IEnumerable<Livro>> FindByIdAsync(int id);
         Task<Livro> PostLivro(Livro livro);
 
+        Task<bool> DeleteLivro(int id);
+        //Task<bool> DeleteLivro(int id);
+
     }
 }

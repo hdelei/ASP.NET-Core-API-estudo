@@ -5,6 +5,7 @@ using Livraria.API.Domain.Models;
 using Livraria.API.Domain.Repositories;
 using Livraria.API.Persistence.Contexts;
 using System.Linq;
+using System;
 
 namespace Livraria.API.Persistence.Repositories
 {
@@ -32,11 +33,6 @@ namespace Livraria.API.Persistence.Repositories
         public async Task<IEnumerable<Livro>> ListAsync()
         {
             return await _context.Livros.ToListAsync();
-        }
-
-        public void Remove(Livro livro)
-        {
-            _context.Livros.Remove(livro);
         }
 
         public void Update(Livro livro)
@@ -79,6 +75,29 @@ namespace Livraria.API.Persistence.Repositories
                 throw ex;
             }
             return livro;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            try
+            {
+                var result = await _context.Livros.SingleOrDefaultAsync(l => l.Id.Equals(id));
+                if (result == null)
+                {
+                    return false;
+                }
+
+                _context.Remove(result);
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
         }
     }
 }
