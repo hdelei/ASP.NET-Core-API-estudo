@@ -27,7 +27,7 @@ namespace Livraria.API.Controllers
             return livro;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("id/{id}")]
         public async Task<Livro> GetLivro(Guid id)
         {
             var livro = await _livroService.FindByIdAsync(id);
@@ -49,7 +49,6 @@ namespace Livraria.API.Controllers
                         }
                     );
                 }
-
 
                 if (result.Titulo == string.Empty)
                 {
@@ -91,6 +90,25 @@ namespace Livraria.API.Controllers
             try
             {
                 return Ok(await _livroService.DeleteLivro(id));
+            }
+            catch (ArgumentException e)
+            {
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(Livro livro)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _livroService.UpdateLivro(livro));
             }
             catch (ArgumentException e)
             {

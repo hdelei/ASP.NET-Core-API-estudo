@@ -14,6 +14,7 @@ namespace Livraria.API.Domain.Services
 
         Task<bool> DeleteLivro(Guid id);
         //Task<bool> DeleteLivro(int id);
+        Task<Livro> UpdateLivro(Livro livro);
 
     }
 }

@@ -35,9 +35,27 @@ namespace Livraria.API.Persistence.Repositories
             return await _context.Livros.ToListAsync();
         }
 
-        public void Update(Livro livro)
+        public async Task<Livro> Update(Livro livro)
         {
-            _context.Livros.Update(livro);
+            try
+            {
+                var result = await _dataset.SingleOrDefaultAsync(l => l.Id.Equals(livro.Id));
+                if (result == null)
+                {
+                    return null;
+                }
+
+                _context.Entry(result).CurrentValues.SetValues(livro);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return livro;
+            //_context.Livros.Update(livro);
         }
 
         async Task<Livro> ILivroRepository.AddAsync(Livro livro)

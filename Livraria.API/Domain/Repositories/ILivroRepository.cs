@@ -12,7 +12,7 @@ namespace Livraria.API.Domain.Repositories
         //Task<Livro> FindByIdAsync(int id);
         Task<Livro> AddAsync(Livro livro);
 
-        void Update(Livro livro);
+        Task<Livro> Update(Livro livro);
         //void Remove(Livro livro);
         Task<bool> DeleteAsync(Guid id);
     }

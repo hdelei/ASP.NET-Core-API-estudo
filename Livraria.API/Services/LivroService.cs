@@ -37,5 +37,9 @@ namespace Livraria.API.Services
             return await _livroRepository.AddAsync(livro);
         }
 
+        public async Task<Livro> UpdateLivro(Livro livro)
+        {
+            return await _livroRepository.Update(livro);
+        }
     }
 }
